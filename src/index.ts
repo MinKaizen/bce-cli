@@ -3,9 +3,14 @@
 export {}
 const fetch = require('node-fetch')
 const cryptoJs = require('crypto-js')
+const dotenv = require('dotenv')
 
-const apiKey = "s7NGBLuHftt0ZeSIDiH7rnSZU7esTvc4PCXdWc_6"
-const apiSecret = 'RWvtZizkLvFjtCYPs2UCCC3wpDMi-nzLOwAOZIzx'
+// Load environment variables
+dotenv.config()
+
+const apiKey = process.env.API_KEY
+const apiSecret = process.env.API_SECRET
+
 const timestamp = Date.now()
 const method = 'GET'
 const baseUrl = 'https://ftx.com'
