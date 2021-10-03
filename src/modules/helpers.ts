@@ -26,8 +26,8 @@ helpers.importJson = importJson
 
 /**
  * Calculate Start time
- * @param timeStringUTC - string representing the UTC time of day in 24 hour format. e.g. '10:00:00' = 10AM
- * @returns @Date - The Date object representing today at the specified start time
+ * @param {string} timeStringUTC - string representing the UTC time of day in 24 hour format. e.g. '10:00:00' = 10AM
+ * @returns {Date} - The Date object representing today at the specified start time
  * 
  * Pre Conditions:
  * - timeStringUTC is a a valid 24 hour string in HH:mm:ss format
