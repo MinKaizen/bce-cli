@@ -33,7 +33,7 @@ helpers.importJson = importJson
  * Pre Conditions:
  * - timeStringUTC is a a valid 24 hour string in HH:mm:ss format
  */
-const calculateStartTime = (timeStringUTC: String): number => {
+const calculateStartTimeSeconds = (timeStringUTC: String): number => {
   const targetTime = new Date(`1970-01-01T${timeStringUTC}+00:00`)
   const targetHours = targetTime.getUTCHours()
   const targetMinutes = targetTime.getUTCMinutes()
@@ -47,7 +47,7 @@ const calculateStartTime = (timeStringUTC: String): number => {
   const startTimeSeconds = startTime.getTime()/1000
   return startTimeSeconds
 }
-helpers.calculateStartTime = calculateStartTime
+helpers.calculateStartTimeSeconds = calculateStartTimeSeconds
 
 /**
  * Calculate end time in seconds based on a start time, resolution in seconds and number of candles
