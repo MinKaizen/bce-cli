@@ -12,7 +12,7 @@ let helpers: any = {}
  * @param {string} path - path to a valid json file
  * @param {boolean} relativeToRoot - whether to automatically prepend ./ when searching for file
  */
-const importJson = (path: String, relativeToRoot: Boolean = true): Object => {
+const importJson = (path: string, relativeToRoot: Boolean = true): Object => {
   const missingDotSlash = relativeToRoot && !path.startsWith('./')
   const missingFileExtension = !path.endsWith('.json')
   let finalPath = path
@@ -32,7 +32,7 @@ helpers.importJson = importJson
  * Pre Conditions:
  * - timeStringUTC is a a valid 24 hour string in HH:mm:ss format
  */
-const calculateStartTime = (timeStringUTC: String): Date => {
+const calculateStartTime = (timeStringUTC: string): Date => {
   const targetTime = new Date(`1970-01-01T${timeStringUTC}+00:00`)
   const targetHours = targetTime.getUTCHours()
   const targetMinutes = targetTime.getUTCMinutes()
@@ -55,7 +55,7 @@ helpers.calculateStartTime = calculateStartTime
  * @param {int} numCandles - Number of candles to count
  * @returns {Date}
  */
-const calculateEndTime = (timeStringUTC: String, resolutionMinutes: number, numCandles: number): Date => {
+const calculateEndTime = (timeStringUTC: string, resolutionMinutes: number, numCandles: number): Date => {
   const startTime = calculateStartTime(timeStringUTC)
   const resolutionMilliseconds = resolutionMinutes * 60 * 1000
   const offsetMilliseconds = (numCandles-1) * resolutionMilliseconds
@@ -72,7 +72,7 @@ helpers.calculateEndTime = calculateEndTime
  * @param {string} requestPath - request path, including leading slash and any params. e.g. '/api/markets/btc?id=23'
  * @return {string} - SHA256 HMAC of the timestamp, method and requestPath as a hex string
  */
-const ftxSign = (apiSecret: String, timestamp: number, method: String, requestPath: String): String => {
+const ftxSign = (apiSecret: string, timestamp: number, method: string, requestPath: string): string => {
   const payload = timestamp.toString() + method + requestPath
   const signature = cryptoJs.HmacSHA256(payload, apiSecret)
   const signatureHex = signature.toString()
