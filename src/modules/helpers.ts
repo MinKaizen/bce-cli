@@ -53,6 +53,7 @@ helpers.calculateStartTime = calculateStartTime
  * @param {string} timeStringUTC - UTC time of day in 24 hour format. e.g. '10:00:00' = 10AM
  * @param {int} resolutionMinutes - Candle thickness in minutes
  * @param {int} numCandles - Number of candles to count
+ * @returns {Date}
  */
 const calculateEndTime = (timeStringUTC: String, resolutionMinutes: number, numCandles: number): Date => {
   const startTime = calculateStartTime(timeStringUTC)
