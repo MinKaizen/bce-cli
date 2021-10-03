@@ -4,20 +4,21 @@ export {}
 const fetch = require('node-fetch')
 const cryptoJs = require('crypto-js')
 const dotenv = require('dotenv')
+const importJson = require('../modules/importJson')
 
 // Load environment variables
 dotenv.config()
 
 const apiKey = process.env.API_KEY
 const apiSecret = process.env.API_SECRET
+const params = importJson('params/default.json')
 
 const timestamp = Date.now()
 const method = 'GET'
 const baseUrl = 'https://ftx.com'
 
-const market = 'btc-perp'
-const resolutionMinutes = 5
-const resolutionSeconds = resolutionMinutes * 60
+const market = params.market
+const resolutionSeconds = params.resolution
 const startTime = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate(), 10, 0, 0).getTime()/1000
 // const endTime = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate(), 10, resolutionMinutes, 0).getTime()/1000
 const endTime = startTime
