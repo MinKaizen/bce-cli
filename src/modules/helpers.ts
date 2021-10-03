@@ -2,6 +2,7 @@
 export {}
 
 const fs = require('fs')
+const cryptoJs = require('crypto-js')
 
 let helpers: any = {}
 
@@ -62,6 +63,22 @@ const calculateEndTime = (startTime: number, resolutionSeconds: number, numCandl
   return startTime + (numCandles - 1) * resolutionSeconds
 }
 helpers.calculateEndTime = calculateEndTime
+
+/**
+ * 
+ * @param {string} apiSecret- API Secret
+ * @param {int} timestamp - number of milliseconds since epoch
+ * @param {string} method - http method. e.g. GET or POST
+ * @param {string} requestPath - request path, including leading slash and any params. e.g. '/api/markets/btc?id=23'
+ * @return {string} - SHA256 HMAC of the timestamp, method and requestPath as a hex string
+ */
+const ftxSign = (apiSecret: String, timestamp: number, method: String, requestPath: String): String => {
+  const payload = timestamp.toString() + method + requestPath
+  const signature = cryptoJs.HmacSHA256(payload, apiSecret)
+  const signatureHex = signature.toString()
+  return signatureHex
+}
+helpers.ftxSign = ftxSign
 
 // Default export
 module.exports = helpers
