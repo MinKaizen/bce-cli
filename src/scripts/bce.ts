@@ -4,7 +4,7 @@ export {}
 const fetch = require('node-fetch')
 const cryptoJs = require('crypto-js')
 const dotenv = require('dotenv')
-const {importJson, calculateEndTime} = require('../modules/helpers')
+const {importJson, calculateStartTime, calculateEndTime} = require('../modules/helpers')
 
 // Load environment variables
 dotenv.config()
@@ -19,7 +19,7 @@ const baseUrl = 'https://ftx.com'
 
 const market = params.market
 const resolutionSeconds = params.resolution
-const startTime = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate(), 10, 0, 0).getTime()/1000
+const startTime = calculateStartTime(params.startTime)
 const endTime = calculateEndTime(startTime, resolutionSeconds, params.numCandles)
 
 const requestPath = `/api/markets/${market}/candles?resolution=${resolutionSeconds}&start_time=${startTime}&end_time=${endTime}`
