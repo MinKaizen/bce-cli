@@ -49,32 +49,18 @@ const calculateStartTime = (timeStringUTC: String): Date => {
 helpers.calculateStartTime = calculateStartTime
 
 /**
- * Calculate Start time in seconds since epoch given a 24 hour time string
- * @param timeStringUTC - string representing the UTC time of day in 24 hour format. e.g. '10:00:00' = 10AM
- * @returns @number - The start time in seconds since epoch
- * 
- * Pre Conditions:
- * - timeStringUTC is a a valid 24 hour string in HH:mm:ss format
- */
-const calculateStartTimeSeconds = (timeStringUTC: String): number => {
-  const startTime = calculateStartTime(timeStringUTC)
-  const startTimeSeconds = startTime.getTime()/1000
-  return startTimeSeconds
-}
-helpers.calculateStartTimeSeconds = calculateStartTimeSeconds
-
-/**
  * Calculate end time in seconds based on a start time, resolution in seconds and number of candles
  * 
- * Pre Conditions:
- * - startTime is a positive integer representing the seconds since epoch
- * - startTime is less than Date.now()
- * - resolutionSeconds is a positive integer representing the candle size in seconds
- * - numCandles is a positive integer greater than 0 representing the number of candles to retrieve
- * - The sum of startTime + numCandles * resolution is less than Date.now()
+ * @param {string} timeStringUTC - UTC time of day in 24 hour format. e.g. '10:00:00' = 10AM
+ * @param {int} resolutionMinutes - Candle thickness in minutes
+ * @param {int} numCandles - Number of candles to count
  */
-const calculateEndTime = (startTime: number, resolutionSeconds: number, numCandles: number): number => {
-  return startTime + (numCandles - 1) * resolutionSeconds
+const calculateEndTime = (timeStringUTC: String, resolutionMinutes: number, numCandles: number): Date => {
+  const startTime = calculateStartTime(timeStringUTC)
+  const resolutionMilliseconds = resolutionMinutes * 60 * 1000
+  const offsetMilliseconds = (numCandles-1) * resolutionMilliseconds
+  const endTime = new Date(startTime.getTime() + offsetMilliseconds)
+  return endTime
 }
 helpers.calculateEndTime = calculateEndTime
 
