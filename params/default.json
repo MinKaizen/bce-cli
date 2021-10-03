@@ -1,6 +1,6 @@
 {
   "market": "btc-perp",
   "resolution": 300,
-  "startTime": "10:00:00",
+  "startTime": "00:00:00",
   "numCandles": 1
 }
