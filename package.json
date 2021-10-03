@@ -8,7 +8,7 @@
     "build": "rm -rf dist && tsc",
     "watch": "rm -rf dist && tsc -w",
     "dev": "rm -rf dist && tsc -w",
-    "bceftx": "node dist/scripts/bceftx.js",
+    "bce": "node dist/scripts/bce.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
