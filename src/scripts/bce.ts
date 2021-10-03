@@ -4,8 +4,7 @@ export {}
 const fetch = require('node-fetch')
 const cryptoJs = require('crypto-js')
 const dotenv = require('dotenv')
-const importJson = require('../modules/importJson')
-const {calculateEndTime} = require('../modules/helpers')
+const {importJson, calculateEndTime} = require('../modules/helpers')
 
 // Load environment variables
 dotenv.config()
