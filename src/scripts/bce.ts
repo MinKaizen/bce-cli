@@ -4,7 +4,6 @@ export {}
 const fetch = require('node-fetch')
 const dotenv = require('dotenv')
 const _ = require('lodash')
-// const {importJson, calculateStartTime, calculateEndTime, ftxSign} = require('../modules/helpers')
 const helpers = require('../modules/helpers')
 
 // Load environment variables
