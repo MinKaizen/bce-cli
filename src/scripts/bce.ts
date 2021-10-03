@@ -28,7 +28,7 @@ const headers = {
   "FTX-KEY": apiKey,
   "FTX-TS": timestamp,
   "FTX-SIGN": signature,
-  "FTX-SUBACCOUNT": "Scalper",
+  "FTX-SUBACCOUNT": process.env.SUB_ACCOUNT,
 }
 
 const fullUrl = baseUrl + requestPath
