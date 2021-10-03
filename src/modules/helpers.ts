@@ -88,7 +88,7 @@ interface FTXFetchParams {
   numCandles: number,
 }
 
-const FTXFetch = (fetchParams: FTXFetchParams, apiKey: string, apiSecret: string): Promise<Response> => {
+const FTXFetch = async(fetchParams: FTXFetchParams, apiKey: string, apiSecret: string): Promise<Object> => {
   // Base URL
   const method = 'GET'
   const baseUrl = 'https://ftx.com'
@@ -115,7 +115,14 @@ const FTXFetch = (fetchParams: FTXFetchParams, apiKey: string, apiSecret: string
     },
   }
 
-  return fetch(fullUrl, fetchOptions)
+  const response = await fetch(fullUrl, fetchOptions)
+  const json = await response.json()
+  const formatted = {
+    market: market,
+    low: json.result[0].low,
+    high: json.result[0].high,
+  }
+  return formatted
 }
 helpers.FTXFetch = FTXFetch
 

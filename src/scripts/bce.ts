@@ -13,7 +13,7 @@ const params = helpers.importJson('params/default.json');
 
 Promise.all(params.map(async market => {
   const response = await helpers.FTXFetch(market, process.env.API_KEY, process.env.API_SECRET)
-  return response.json()
+  return response
 }))
   .then(results => {
     results.forEach(result => {
