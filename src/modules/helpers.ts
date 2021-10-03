@@ -80,5 +80,42 @@ const ftxSign = (apiSecret: string, timestamp: number, method: string, requestPa
 }
 helpers.ftxSign = ftxSign
 
+interface FTXFetchParams {
+  market: string,
+  resolution: number,
+  startTime: string,
+  numCandles: number,
+}
+
+const fetchFromFtx = (fetchParams: FTXFetchParams, apiKey: string, apiSecret: string): Promise<Response> => {
+  // Base URL
+  const method = 'GET'
+  const baseUrl = 'https://ftx.com'
+
+  // GET Parameters
+  const market = fetchParams.market
+  const resolutionSeconds = fetchParams.resolution
+  const startTime = calculateStartTime(fetchParams.startTime)
+  const startTimeSeconds = startTime.getTime()/1000
+  const endTime = calculateEndTime(fetchParams.startTime, resolutionSeconds, fetchParams.numCandles)
+  const endTimeSeconds = endTime.getTime()/1000
+  const requestPath = `/api/markets/${market}/candles?resolution=${resolutionSeconds}&start_time=${startTimeSeconds}&end_time=${endTimeSeconds}`
+  const fullUrl = baseUrl + requestPath
+
+  const timestamp = Date.now()
+  const signature = helpers.ftxSign(apiSecret, timestamp, method, requestPath)
+
+  const fetchOptions = {
+    method: method,
+    headers: {
+      "FTX-KEY": apiKey,
+      "FTX-TS": timestamp.toString(),
+      "FTX-SIGN": signature,
+    },
+  }
+
+  return fetch(fullUrl, fetchOptions)
+}
+
 // Default export
 module.exports = helpers
