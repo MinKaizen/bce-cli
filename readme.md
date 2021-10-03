@@ -4,3 +4,4 @@
 - Add a proper readme file
 - Add exception handling to FTXFetch
 - Add a formatter that spits out TSV (tab separated, so we can paste it straight into excel)
+- Include open and close in formatted results
