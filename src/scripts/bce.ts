@@ -31,11 +31,6 @@ const headers = {
   "FTX-SUBACCOUNT": "Scalper",
 }
 
-// console.log(signaturePayload)
-// console.log(signature)
-// console.log(signatureHex)
-// console.log(headers)
-
 const fullUrl = baseUrl + requestPath
 
 fetch(fullUrl, {
