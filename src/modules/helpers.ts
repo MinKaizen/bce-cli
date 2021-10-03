@@ -87,7 +87,7 @@ interface FTXFetchParams {
   numCandles: number,
 }
 
-const fetchFromFtx = (fetchParams: FTXFetchParams, apiKey: string, apiSecret: string): Promise<Response> => {
+const FTXFetch = (fetchParams: FTXFetchParams, apiKey: string, apiSecret: string): Promise<Response> => {
   // Base URL
   const method = 'GET'
   const baseUrl = 'https://ftx.com'
