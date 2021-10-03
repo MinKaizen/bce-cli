@@ -3,6 +3,7 @@
 export {}
 const fetch = require('node-fetch')
 const dotenv = require('dotenv')
+const _ = require('lodash')
 const {importJson, calculateStartTime, calculateEndTime, ftxSign} = require('../modules/helpers')
 
 // Load environment variables
@@ -41,7 +42,17 @@ fetch(fullUrl, {
   headers: headers,
 })
   .then((response) => response.json())
-  .then((json) => console.log(json))
+  .then((json) => {
+    const candle = json.result[0]
+    const row = {
+      market: market,
+      time: startTimeFormatted,
+      resolution: (params.resolution / 60).toString() + ' min',
+      low: candle.low,
+      high: candle.high,
+    }
+    console.log(row)
+  })
   .catch(err => {
     console.error(err)
   })
