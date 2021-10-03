@@ -9,9 +9,8 @@ let helpers: any = {}
 /**
  * Import a json file as an object
  * 
- * Pre Conditions:
- * - path is a string
- * - path points to a valid json file
+ * @param {string} path - path to a valid json file
+ * @param {boolean} relativeToRoot - whether to automatically prepend ./ when searching for file
  */
 const importJson = (path: String, relativeToRoot: Boolean = true): Object => {
   const missingDotSlash = relativeToRoot && !path.startsWith('./')
