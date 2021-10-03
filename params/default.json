@@ -1,6 +1,26 @@
-{
-  "market": "btc-perp",
-  "resolution": 300,
-  "startTime": "00:00:00",
-  "numCandles": 1
-}
+[
+  {
+    "market": "btc-perp",
+    "resolution": 300,
+    "startTime": "00:00:00",
+    "numCandles": 1
+  },
+  {
+    "market": "eth-perp",
+    "resolution": 300,
+    "startTime": "00:00:00",
+    "numCandles": 1
+  },
+  {
+    "market": "sol-perp",
+    "resolution": 300,
+    "startTime": "00:00:00",
+    "numCandles": 1
+  },
+  {
+    "market": "ftm-perp",
+    "resolution": 300,
+    "startTime": "00:00:00",
+    "numCandles": 1
+  }
+]
