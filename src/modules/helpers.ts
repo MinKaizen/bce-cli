@@ -116,6 +116,7 @@ const FTXFetch = (fetchParams: FTXFetchParams, apiKey: string, apiSecret: string
 
   return fetch(fullUrl, fetchOptions)
 }
+helpers.FTXFetch = FTXFetch
 
 // Default export
 module.exports = helpers
