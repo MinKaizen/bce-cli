@@ -8,24 +8,24 @@ const {importJson, calculateStartTime, calculateEndTime, ftxSign} = require('../
 // Load environment variables
 dotenv.config()
 
-const apiKey = process.env.API_KEY
-const apiSecret = process.env.API_SECRET
 const params = importJson('params/default.json')
 
-const timestamp = Date.now()
+// Base URL
 const method = 'GET'
 const baseUrl = 'https://ftx.com'
 
+// GET Parameters
 const market = params.market
 const resolutionSeconds = params.resolution
 const startTime = calculateStartTime(params.startTime)
 const endTime = calculateEndTime(startTime, resolutionSeconds, params.numCandles)
-
 const requestPath = `/api/markets/${market}/candles?resolution=${resolutionSeconds}&start_time=${startTime}&end_time=${endTime}`
-const signature = ftxSign(apiSecret, timestamp, method, requestPath)
+
+const timestamp = Date.now()
+const signature = ftxSign(process.env.API_SECRET, timestamp, method, requestPath)
 
 const headers = {
-  "FTX-KEY": apiKey,
+  "FTX-KEY": process.env.API_KEY,
   "FTX-TS": timestamp,
   "FTX-SIGN": signature,
   "FTX-SUBACCOUNT": process.env.SUB_ACCOUNT,
