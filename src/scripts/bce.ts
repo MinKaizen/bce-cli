@@ -2,9 +2,8 @@
 
 export {}
 const fetch = require('node-fetch')
-const cryptoJs = require('crypto-js')
 const dotenv = require('dotenv')
-const {importJson, calculateStartTime, calculateEndTime} = require('../modules/helpers')
+const {importJson, calculateStartTime, calculateEndTime, ftxSign} = require('../modules/helpers')
 
 // Load environment variables
 dotenv.config()
@@ -23,15 +22,12 @@ const startTime = calculateStartTime(params.startTime)
 const endTime = calculateEndTime(startTime, resolutionSeconds, params.numCandles)
 
 const requestPath = `/api/markets/${market}/candles?resolution=${resolutionSeconds}&start_time=${startTime}&end_time=${endTime}`
-
-const signaturePayload = `${timestamp}${method}${requestPath}`
-const signature = cryptoJs.HmacSHA256(signaturePayload, apiSecret)
-const signatureHex = signature.toString()
+const signature = ftxSign(apiSecret, timestamp, method, requestPath)
 
 const headers = {
   "FTX-KEY": apiKey,
   "FTX-TS": timestamp,
-  "FTX-SIGN": signatureHex,
+  "FTX-SIGN": signature,
   "FTX-SUBACCOUNT": "Scalper",
 }
 
