@@ -26,14 +26,14 @@ const importJson = (path: String, relativeToRoot: Boolean = true): Object => {
 helpers.importJson = importJson
 
 /**
- * Calculate Start time in seconds since epoch given a 24 hour time string
+ * Calculate Start time
  * @param timeStringUTC - string representing the UTC time of day in 24 hour format. e.g. '10:00:00' = 10AM
- * @returns @number - The start time in seconds since epoch
+ * @returns @Date - The Date object representing today at the specified start time
  * 
  * Pre Conditions:
  * - timeStringUTC is a a valid 24 hour string in HH:mm:ss format
  */
-const calculateStartTimeSeconds = (timeStringUTC: String): number => {
+const calculateStartTime = (timeStringUTC: String): Date => {
   const targetTime = new Date(`1970-01-01T${timeStringUTC}+00:00`)
   const targetHours = targetTime.getUTCHours()
   const targetMinutes = targetTime.getUTCMinutes()
@@ -44,6 +44,20 @@ const calculateStartTimeSeconds = (timeStringUTC: String): number => {
   startTime.setUTCMinutes(targetMinutes)
   startTime.setUTCSeconds(targetSeconds)
   startTime.setUTCMilliseconds(0)
+  return startTime
+}
+helpers.calculateStartTime = calculateStartTime
+
+/**
+ * Calculate Start time in seconds since epoch given a 24 hour time string
+ * @param timeStringUTC - string representing the UTC time of day in 24 hour format. e.g. '10:00:00' = 10AM
+ * @returns @number - The start time in seconds since epoch
+ * 
+ * Pre Conditions:
+ * - timeStringUTC is a a valid 24 hour string in HH:mm:ss format
+ */
+const calculateStartTimeSeconds = (timeStringUTC: String): number => {
+  const startTime = calculateStartTime(timeStringUTC)
   const startTimeSeconds = startTime.getTime()/1000
   return startTimeSeconds
 }
