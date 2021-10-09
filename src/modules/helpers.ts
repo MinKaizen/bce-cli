@@ -117,12 +117,11 @@ const FTXFetch = async(fetchParams: FTXFetchParams, apiKey: string, apiSecret: s
 
   const response = await fetch(fullUrl, fetchOptions)
   const json = await response.json()
-  const formatted = {
+  const marketResult = {
     market: market,
-    low: json.result[0].low,
-    high: json.result[0].high,
+    json: json,
   }
-  return formatted
+  return marketResult
 }
 helpers.FTXFetch = FTXFetch
 
