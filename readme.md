@@ -1,6 +1,7 @@
 ## TODO
 
 - Decouple the formatting functionality away from FTXFetch function
+- Escape commas in formatters.marketResultsToCSV just in case
 - Refactor param/default.json to include general config and a "markets" or "query" or "candles" array. General config should include things like resolution, but allow for it to be overridden per market
 - Add a proper readme file
 - Add exception handling to FTXFetch
