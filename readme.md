@@ -32,3 +32,11 @@ What's configurable (right now):
 - Refactor param/default.json to include general config and a "markets" or "query" or "candles" array. General config should include things like resolution, but allow for it to be overridden per market
 - Update readme with better instructions on how to configure
 - Add exception handling to FTXFetch
+
+Next steps in order of priority if possible:
+1. Do the same but from Binance instead of FTX, Assets traded are:
+BTCUSDT
+ETHUSDT
+SOLUSDT
+2. get both of them automatically to feed into a google sheet each day
+3. Pull historical data from Binance and FTX - going back as far as possible
