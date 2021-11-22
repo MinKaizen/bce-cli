@@ -3,20 +3,25 @@
 export {}
 
 const dotenv = require('dotenv')
-const _ = require('lodash')
-const helpers = require('../modules/helpers')
-const formatters = require('../modules/formatters')
+const FTXClient = require('../modules/FTXClient')
+const { importJson } = require('../modules/helpers')
+const { FTXResultsToCSV } = require('../modules/formatters')
 
 // Load environment variables
 dotenv.config()
 
-const params = helpers.importJson('params/default.json');
+const options = importJson('/config/default.json')
 
-Promise.all(params.map(async market => {
-  const response = await helpers.FTXFetch(market, process.env.API_KEY, process.env.API_SECRET)
-  return response
-}))
-  .then(marketResults => {
-    const csv = formatters.marketResultsToCSV(marketResults)
-    console.log(csv)
-  })
+var ftx = new FTXClient(process.env.API_KEY, process.env.API_SECRET, options)
+const markets = [
+  'btc-perp',
+  'eth-perp',
+  'sol-perp',
+  'ftm-perp',
+]
+
+Promise.all(markets.map(market => {
+  return ftx.fetch(market)
+})).then(results => {
+  console.log(FTXResultsToCSV(results))
+})
