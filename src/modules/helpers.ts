@@ -69,5 +69,26 @@ const calculateEndTime = (
 }
 helpers.calculateEndTime = calculateEndTime
 
+interface Candle {
+  market: string
+  open: number
+  high: number
+  low: number
+  close: number
+}
+
+const candleToCSV = (
+  candle: Candle,
+  columns: Array<string> = ["market", "open", "high", "low", "close"],
+  delimiter: string = ","
+): string => {
+  const values = columns.map((key) => {
+    return candle[key]
+  })
+  const csv = values.join(delimiter)
+  return csv
+}
+helpers.candleToCSV = candleToCSV
+
 // Default export
 module.exports = helpers
