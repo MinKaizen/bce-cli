@@ -26,7 +26,7 @@ interface Candle {
 
 class BinanceClient {
   options: InterfaceOptions
-  client
+  client: any
 
   constructor(apiKey: string, apiSecret: string, options?: InterfaceOptions) {
     const defaultOptions = {
@@ -62,7 +62,7 @@ class BinanceClient {
     return resolutionMinutes.toString() + "m"
   }
 
-  makeCandle(market: string, response): Candle {
+  makeCandle(market: string, response: any): Candle {
     const candle = {
       market: market,
       open: parseFloat(response.data[0][1]),
