@@ -2,6 +2,8 @@
 
 export {}
 
+import { Candle, ClientOptions } from "../modules/interfaces"
+
 const dotenv = require("dotenv")
 const FTXClient = require("../modules/FTXClient")
 const BinanceClient = require("../modules/BinanceClient")
@@ -11,33 +13,23 @@ const { importJson, candlesToCSV } = require("../modules/helpers")
 dotenv.config()
 
 const options = importJson("/config/default.json")
-
-const ftxOptions = {
-  resolutionMinutes: options.resolutionMinutes,
-  startTimeUTC: options.startTimeUTC,
-}
+const clientOptions: ClientOptions = (({
+  resolutionMinutes,
+  startTimeUTC,
+}) => ({
+  resolutionMinutes,
+  startTimeUTC,
+}))(options)
 const ftx = new FTXClient(
   process.env.API_KEY,
   process.env.API_SECRET,
-  ftxOptions
+  clientOptions
 )
-const binanceOptions = {
-  resolutionMinutes: options.resolutionMinutes,
-  startTimeUTC: options.startTimeUTC,
-}
 const binance = new BinanceClient(
   process.env.BINANCE_API_KEY,
   process.env.BINANCE_API_SECRET,
-  binanceOptions
+  clientOptions
 )
-
-interface Candle {
-  market: string
-  open: number
-  high: number
-  low: number
-  close: number
-}
 
 const clientMap = {
   binance: binance,

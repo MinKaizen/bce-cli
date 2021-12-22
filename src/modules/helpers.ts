@@ -1,6 +1,8 @@
 "use strict"
 export {}
 
+import { Candle } from "./interfaces"
+
 const fs = require("fs")
 
 let helpers: any = {}
@@ -66,14 +68,6 @@ const calculateEndTime = (
   return endTime
 }
 helpers.calculateEndTime = calculateEndTime
-
-interface Candle {
-  market: string
-  open: number
-  high: number
-  low: number
-  close: number
-}
 
 const candleToCSV = (
   candle: Candle,

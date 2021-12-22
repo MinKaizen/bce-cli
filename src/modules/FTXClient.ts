@@ -1,29 +1,16 @@
 "use strict"
 export {}
-
+import { Candle, ClientOptions } from "../modules/interfaces"
 const cryptoJs = require("crypto-js")
 const fetch = require("node-fetch")
 const helpers = require("../modules/helpers")
 
-interface Candle {
-  market: string
-  open: number
-  high: number
-  low: number
-  close: number
-}
-
-interface FTXOptions {
-  resolutionMinutes: number
-  startTimeUTC: string
-}
-
 class FTXClient {
   apiKey: string
   apiSecret: string
-  options: FTXOptions
+  options: ClientOptions
 
-  constructor(apiKey: string, apiSecret: string, options: FTXOptions) {
+  constructor(apiKey: string, apiSecret: string, options: ClientOptions) {
     this.apiKey = apiKey
     this.apiSecret = apiSecret
     this.options = options

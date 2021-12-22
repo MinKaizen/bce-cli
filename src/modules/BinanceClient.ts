@@ -1,34 +1,20 @@
 "use strict"
-
 export {}
-
+import { Candle, ClientOptions } from "../modules/interfaces"
 const { Spot } = require("@binance/connector")
 const { calculateStartTime } = require("../modules/helpers")
 
-interface InterfaceOptions {
-  resolutionMinutes: number
-  startTimeUTC: string
-}
-
-interface VendorOptions {
+interface BinanceOptions {
   startTime: number
   endTime: number
   limit: number
 }
 
-interface Candle {
-  market: string
-  open: number
-  high: number
-  low: number
-  close: number
-}
-
 class BinanceClient {
-  options: InterfaceOptions
+  options: ClientOptions
   client: any
 
-  constructor(apiKey: string, apiSecret: string, options?: InterfaceOptions) {
+  constructor(apiKey: string, apiSecret: string, options?: ClientOptions) {
     const defaultOptions = {
       resolutionMinutes: 5,
       startTimeUTC: "00:00:00",
@@ -45,11 +31,11 @@ class BinanceClient {
     return candle
   }
 
-  makeOptions(interfaceOptions: InterfaceOptions): VendorOptions {
-    const startTime = calculateStartTime(interfaceOptions.startTimeUTC)
+  makeOptions(ClientOptions: ClientOptions): BinanceOptions {
+    const startTime = calculateStartTime(ClientOptions.startTimeUTC)
     const startTimeMilliseconds = startTime.getTime()
     const endTimeMilliseconds =
-      startTimeMilliseconds + interfaceOptions.resolutionMinutes * 60 * 1000
+      startTimeMilliseconds + ClientOptions.resolutionMinutes * 60 * 1000
     const options = {
       startTime: startTimeMilliseconds,
       endTime: endTimeMilliseconds,
