@@ -88,5 +88,19 @@ const candleToCSV = (
 }
 helpers.candleToCSV = candleToCSV
 
+const candlesToCSV = (
+  candles: Array<Candle>,
+  columns: Array<string> = ["market", "open", "high", "low", "close"],
+  delimiter: string = ","
+): string => {
+  const rows = candles.map((candle) => {
+    return candleToCSV(candle, columns, delimiter)
+  })
+  const header = columns.join(delimiter)
+  const csv = [header, ...rows].join("\n")
+  return csv
+}
+helpers.candlesToCSV = candlesToCSV
+
 // Default export
 module.exports = helpers
