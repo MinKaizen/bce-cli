@@ -35,7 +35,19 @@ const options = {
 
 client
   .klines(fetchParams.market, interval, options)
-  .then(console.log)
+  .then((response) => {
+    /**
+     * See https://binance-docs.github.io/apidocs/spot/en/#kline-candlestick-data
+     */
+    const candle = {
+      market: fetchParams.market,
+      open: response.data[0][1],
+      high: response.data[0][2],
+      low: response.data[0][3],
+      close: response.data[0][4],
+    }
+    console.log(candle)
+  })
   .catch((e) => {
     console.error(e.response.data)
   })
