@@ -57,10 +57,10 @@ class BinanceClient {
   makeCandle(market: string, response) {
     const candle = {
       market: market,
-      open: response.data[0][1],
-      high: response.data[0][2],
-      low: response.data[0][3],
-      close: response.data[0][4],
+      open: parseFloat(response.data[0][1]),
+      high: parseFloat(response.data[0][2]),
+      low: parseFloat(response.data[0][3]),
+      close: parseFloat(response.data[0][4]),
     }
     return candle
   }
