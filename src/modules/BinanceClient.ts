@@ -1,8 +1,8 @@
-"use strict"
+'use strict'
 export {}
-import { Candle, ClientOptions } from "../modules/interfaces"
-const { Spot } = require("@binance/connector")
-const { calculateStartTime } = require("../modules/helpers")
+import { Candle, ClientOptions } from '../modules/interfaces'
+const { Spot } = require('@binance/connector')
+const { calculateStartTime } = require('../modules/helpers')
 
 interface BinanceOptions {
   startTime: number
@@ -17,7 +17,7 @@ class BinanceClient {
   constructor(apiKey: string, apiSecret: string, options?: ClientOptions) {
     const defaultOptions = {
       resolutionMinutes: 5,
-      startTimeUTC: "00:00:00",
+      startTimeUTC: '00:00:00',
     }
     this.options = Object.assign(defaultOptions, options ?? {})
     this.client = new Spot(apiKey, apiSecret)
@@ -45,7 +45,7 @@ class BinanceClient {
   }
 
   makeInterval(resolutionMinutes: number) {
-    return resolutionMinutes.toString() + "m"
+    return resolutionMinutes.toString() + 'm'
   }
 
   makeCandle(market: string, response: any): Candle {

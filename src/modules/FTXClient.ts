@@ -1,9 +1,9 @@
-"use strict"
+'use strict'
 export {}
-import { Candle, ClientOptions } from "../modules/interfaces"
-const cryptoJs = require("crypto-js")
-const fetch = require("node-fetch")
-const helpers = require("../modules/helpers")
+import { Candle, ClientOptions } from '../modules/interfaces'
+const cryptoJs = require('crypto-js')
+const fetch = require('node-fetch')
+const helpers = require('../modules/helpers')
 
 class FTXClient {
   apiKey: string
@@ -17,8 +17,8 @@ class FTXClient {
   }
 
   async fetch(market: string): Promise<Candle> {
-    const method = "GET"
-    const baseURL = "https://ftx.com"
+    const method = 'GET'
+    const baseURL = 'https://ftx.com'
     const requestPath = this.generateRequestPath(
       market,
       this.options.startTimeUTC,
@@ -30,7 +30,7 @@ class FTXClient {
     const response = await fetch(fullURL, { method: method, headers: headers })
     const json = await response.json()
 
-    if (typeof json.error === "string") {
+    if (typeof json.error === 'string') {
       throw json.error
     }
 
@@ -63,9 +63,9 @@ class FTXClient {
     const timestamp = Date.now()
     const signature = this.sign(this.apiSecret, timestamp, method, requestPath)
     const headers = {
-      "FTX-KEY": this.apiKey,
-      "FTX-TS": timestamp.toString(),
-      "FTX-SIGN": signature,
+      'FTX-KEY': this.apiKey,
+      'FTX-TS': timestamp.toString(),
+      'FTX-SIGN': signature,
     }
     return headers
   }

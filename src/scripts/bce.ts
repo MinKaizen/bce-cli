@@ -1,18 +1,18 @@
-"use strict"
+'use strict'
 
 export {}
 
-import { Candle, ClientOptions } from "../modules/interfaces"
+import { Candle, ClientOptions } from '../modules/interfaces'
 
-const dotenv = require("dotenv")
-const FTXClient = require("../modules/FTXClient")
-const BinanceClient = require("../modules/BinanceClient")
-const { importJson, candlesToCSV } = require("../modules/helpers")
+const dotenv = require('dotenv')
+const FTXClient = require('../modules/FTXClient')
+const BinanceClient = require('../modules/BinanceClient')
+const { importJson, candlesToCSV } = require('../modules/helpers')
 
 // Load environment variables
 dotenv.config()
 
-const options = importJson("/config/default.json")
+const options = importJson('/config/default.json')
 const clientOptions: ClientOptions = (({
   resolutionMinutes,
   startTimeUTC,
@@ -36,15 +36,15 @@ const clientMap = {
   ftx: ftx,
 }
 
-const candles: Array<Candle> = options.markets.map((clientMarket) => {
-  const clientName = clientMarket.split(":")[0]
-  const market = clientMarket.split(":")[1]
+const candles: Array<Candle> = options.markets.map(clientMarket => {
+  const clientName = clientMarket.split(':')[0]
+  const market = clientMarket.split(':')[1]
   const client = clientMap[clientName]
   return client.fetch(market)
 })
 
-Promise.all(candles).then((candles) => {
-  const headers = ["market", "open", "high", "low", "close"]
+Promise.all(candles).then(candles => {
+  const headers = ['market', 'open', 'high', 'low', 'close']
   const csv = candlesToCSV(candles, headers)
   console.log(csv)
 })

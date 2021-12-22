@@ -1,9 +1,9 @@
-"use strict"
+'use strict'
 export {}
 
-import { Candle } from "./interfaces"
+import { Candle } from './interfaces'
 
-const fs = require("fs")
+const fs = require('fs')
 
 let helpers: any = {}
 
@@ -14,11 +14,11 @@ let helpers: any = {}
  * @param {boolean} relativeToRoot - whether to automatically prepend ./ when searching for file
  */
 const importJson = (path: string, relativeToRoot: Boolean = true): Object => {
-  const missingDotSlash = relativeToRoot && !path.startsWith("./")
-  const missingFileExtension = !path.endsWith(".json")
+  const missingDotSlash = relativeToRoot && !path.startsWith('./')
+  const missingFileExtension = !path.endsWith('.json')
   let finalPath = path
-  finalPath = missingDotSlash ? "./" + finalPath : finalPath
-  finalPath = missingFileExtension ? finalPath + ".json" : finalPath
+  finalPath = missingDotSlash ? './' + finalPath : finalPath
+  finalPath = missingFileExtension ? finalPath + '.json' : finalPath
   const raw = fs.readFileSync(finalPath)
   const parsed = JSON.parse(raw)
   return parsed
@@ -71,10 +71,10 @@ helpers.calculateEndTime = calculateEndTime
 
 const candleToCSV = (
   candle: Candle,
-  columns: Array<string> = ["market", "open", "high", "low", "close"],
-  delimiter: string = ","
+  columns: Array<string> = ['market', 'open', 'high', 'low', 'close'],
+  delimiter: string = ','
 ): string => {
-  const values = columns.map((key) => {
+  const values = columns.map(key => {
     return candle[key]
   })
   const csv = values.join(delimiter)
@@ -84,14 +84,14 @@ helpers.candleToCSV = candleToCSV
 
 const candlesToCSV = (
   candles: Array<Candle>,
-  columns: Array<string> = ["market", "open", "high", "low", "close"],
-  delimiter: string = ","
+  columns: Array<string> = ['market', 'open', 'high', 'low', 'close'],
+  delimiter: string = ','
 ): string => {
-  const rows = candles.map((candle) => {
+  const rows = candles.map(candle => {
     return candleToCSV(candle, columns, delimiter)
   })
   const header = columns.join(delimiter)
-  const csv = [header, ...rows].join("\n")
+  const csv = [header, ...rows].join('\n')
   return csv
 }
 helpers.candlesToCSV = candlesToCSV
