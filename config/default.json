@@ -2,7 +2,9 @@
   "resolutionMinutes": 5,
   "startTimeUTC": "00:00:00",
   "markets": [
+      "binance:BTCUSDT",
       "binance:ETHUSDT",
+      "binance:SOLUSDT",
       "ftx:btc-perp",
       "ftx:eth-perp",
       "ftx:sol-perp",
