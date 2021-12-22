@@ -23,14 +23,15 @@ What's configurable (right now):
 - Change the candle size (on a per-market basis)
 - Change the start time of candle (on a per-market basis)
 
-
 ## TODO
 
-- Refactor config/default.json to include general config, but allow options to be overridden on a per-client (FTX/BCE) and per-market basis
+- Add "Source" to header columns. Make it easy to add more header columns
+- Create a [types.ts file](https://stackoverflow.com/questions/36633033/how-to-organize-typescript-interfaces)
+- Use a ClientFacade or ClientInterface so that Binance and FTX clients use the same interface
+- Add user friendly exception handling
 - Update readme with better instructions on how to configure
-- Add user friendly exception handling to FTXClient.fetch()
 
 Next steps in order of priority if possible:
-1. Implement Binance version from test.ts
-2. get both of them automatically to feed into a google sheet each day
-3. Pull historical data from Binance and FTX - going back as far as possible
+
+1. get both of them automatically to feed into a google sheet each day
+2. Pull historical data from Binance and FTX - going back as far as possible
