@@ -3,7 +3,7 @@
 export {}
 
 const { Spot } = require("@binance/connector")
-const helpers = require("../modules/helpers")
+const { calculateStartTime } = require("../modules/helpers")
 
 interface InterfaceOptions {
   resolutionMinutes: number
@@ -38,7 +38,7 @@ class BinanceClient {
   }
 
   makeOptions(interfaceOptions: InterfaceOptions): VendorOptions {
-    const startTime = helpers.calculateStartTime(interfaceOptions.startTimeUTC)
+    const startTime = calculateStartTime(interfaceOptions.startTimeUTC)
     const startTimeMilliseconds = startTime.getTime()
     const endTimeMilliseconds =
       startTimeMilliseconds + interfaceOptions.resolutionMinutes * 60 * 1000
