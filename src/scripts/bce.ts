@@ -5,7 +5,6 @@ export {}
 const dotenv = require("dotenv")
 const FTXClient = require("../modules/FTXClient")
 const { importJson, candleToCSV } = require("../modules/helpers")
-const { FTXResultsToCSV } = require("../modules/formatters")
 
 // Load environment variables
 dotenv.config()
