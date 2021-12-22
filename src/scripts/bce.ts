@@ -4,7 +4,7 @@ export {}
 
 const dotenv = require("dotenv")
 const FTXClient = require("../modules/FTXClient")
-const { importJson } = require("../modules/helpers")
+const { importJson, candleToCSV } = require("../modules/helpers")
 const { FTXResultsToCSV } = require("../modules/formatters")
 
 // Load environment variables
@@ -19,6 +19,16 @@ Promise.all(
   markets.map((market) => {
     return ftx.fetch(market)
   })
-).then((results) => {
-  console.log(FTXResultsToCSV(results))
-})
+)
+  .then((candles) => {
+    const headers = ["market", "open", "high", "low", "close"]
+    const rows = candles.map((candle) => {
+      return candleToCSV(candle, headers)
+    })
+    const csv = [headers.join(","), ...rows].join("\n")
+    return csv
+  })
+  .then((csv) => {
+    console.log(csv)
+    // console.log(FTXResultsToCSV(results))
+  })

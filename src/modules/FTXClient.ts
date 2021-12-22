@@ -5,15 +5,12 @@ const cryptoJs = require("crypto-js")
 const fetch = require("node-fetch")
 const helpers = require("../modules/helpers")
 
-interface FTXResult {
+interface Candle {
   market: string
-  startTime: string
-  time: number
   open: number
   high: number
   low: number
   close: number
-  volume: number
 }
 
 interface FTXOptions {
@@ -32,7 +29,7 @@ class FTXClient {
     this.options = options
   }
 
-  async fetch(market: string): Promise<FTXResult> {
+  async fetch(market: string): Promise<Candle> {
     const method = "GET"
     const baseURL = "https://ftx.com"
     const requestPath = this.generateRequestPath(
@@ -50,8 +47,14 @@ class FTXClient {
       throw json.error
     }
 
-    const result = { ...{ market: market }, ...json.result[0] }
-    return result
+    const candle = {
+      market: market,
+      open: json.result[0].open,
+      high: json.result[0].high,
+      low: json.result[0].low,
+      close: json.result[0].close,
+    }
+    return candle
   }
 
   generateRequestPath(
