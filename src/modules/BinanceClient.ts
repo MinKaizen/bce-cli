@@ -16,6 +16,14 @@ interface VendorOptions {
   limit: number
 }
 
+interface Candle {
+  market: string
+  open: number
+  high: number
+  low: number
+  close: number
+}
+
 class BinanceClient {
   options: InterfaceOptions
   client
@@ -29,7 +37,7 @@ class BinanceClient {
     this.client = new Spot(apiKey, apiSecret)
   }
 
-  async fetch(market: string) {
+  async fetch(market: string): Promise<Candle> {
     const interval = this.makeInterval(this.options.resolutionMinutes)
     const options = this.makeOptions(this.options)
     const res = await this.client.klines(market, interval, options)
@@ -54,7 +62,7 @@ class BinanceClient {
     return resolutionMinutes.toString() + "m"
   }
 
-  makeCandle(market: string, response) {
+  makeCandle(market: string, response): Candle {
     const candle = {
       market: market,
       open: parseFloat(response.data[0][1]),
