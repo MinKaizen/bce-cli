@@ -2,8 +2,6 @@
 export {}
 
 const fs = require("fs")
-const cryptoJs = require("crypto-js")
-const fetch = require("node-fetch")
 
 let helpers: any = {}
 
