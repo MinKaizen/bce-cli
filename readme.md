@@ -25,8 +25,9 @@ What's configurable (right now):
 
 ## TODO
 
+- Create a better folder structure. e.g. interfaces.ts is not really a module, is it?
+- Use a helper function to convert generic options object to ClientOptions
 - Add "Source" to header columns. Make it easy to add more header columns
-- Create a [types.ts file](https://stackoverflow.com/questions/36633033/how-to-organize-typescript-interfaces)
 - Use a ClientFacade or ClientInterface so that Binance and FTX clients use the same interface
 - Add user friendly exception handling
 - Update readme with better instructions on how to configure
