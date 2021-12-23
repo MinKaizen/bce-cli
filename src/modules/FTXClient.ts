@@ -1,11 +1,10 @@
 'use strict'
-export {}
-import { Candle, ClientOptions } from '../modules/interfaces'
-const cryptoJs = require('crypto-js')
-const fetch = require('node-fetch')
-const helpers = require('../modules/helpers')
+import { Candle, ClientOptions } from './interfaces'
+import * as helpers from './helpers'
+import cryptoJs from 'crypto-js'
+import fetch from 'node-fetch'
 
-class FTXClient {
+export default class FTXClient {
   apiKey: string
   apiSecret: string
   options: ClientOptions
@@ -82,5 +81,3 @@ class FTXClient {
     return signatureHex
   }
 }
-
-module.exports = FTXClient

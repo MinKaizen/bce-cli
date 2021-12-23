@@ -1,25 +1,38 @@
 'use strict'
-
-export {}
-
 import { Candle, ClientOptions } from '../modules/interfaces'
-
-const dotenv = require('dotenv')
-const FTXClient = require('../modules/FTXClient')
-const BinanceClient = require('../modules/BinanceClient')
-const { importJson, candlesToCSV } = require('../modules/helpers')
+import dotenv from 'dotenv'
+import FTXClient from '../modules/FTXClient'
+import BinanceClient from '../modules/BinanceClient'
+import { importJson, candlesToCSV } from '../modules/helpers'
 
 // Load environment variables
 dotenv.config()
+const options: any = importJson('/config/default.json')
 
-const options = importJson('/config/default.json')
-const clientOptions: ClientOptions = (({
-  resolutionMinutes,
-  startTimeUTC,
-}) => ({
-  resolutionMinutes,
-  startTimeUTC,
-}))(options)
+if (!process.env.API_KEY) {
+  throw 'API_KEY is undefined in .env'
+}
+if (!process.env.API_SECRET) {
+  throw 'API_SECRET is undefined in .env'
+}
+if (!process.env.BINANCE_API_KEY) {
+  throw 'BINANCE_API_KEY is undefined in .env'
+}
+if (!process.env.BINANCE_API_SECRET) {
+  throw 'BINANCE_API_SECRET is undefined in .env'
+}
+if (typeof options.resolutionMinutes !== 'number') {
+  throw 'resolutionMinutes is not defined in config file'
+}
+if (typeof options.startTimeUTC !== 'string') {
+  throw 'startTimeUTC is not defined in config file'
+}
+
+const clientOptions: ClientOptions = {
+  resolutionMinutes: options.resolutionMinutes,
+  startTimeUTC: options.startTimeUTC,
+}
+
 const ftx = new FTXClient(
   process.env.API_KEY,
   process.env.API_SECRET,

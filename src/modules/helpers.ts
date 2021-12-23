@@ -1,11 +1,6 @@
 'use strict'
-export {}
-
 import { Candle } from './interfaces'
-
-const fs = require('fs')
-
-let helpers: any = {}
+import * as fs from 'fs'
 
 /**
  * Import a json file as an object
@@ -13,17 +8,19 @@ let helpers: any = {}
  * @param {string} path - path to a valid json file
  * @param {boolean} relativeToRoot - whether to automatically prepend ./ when searching for file
  */
-const importJson = (path: string, relativeToRoot: Boolean = true): Object => {
+export const importJson = (
+  path: string,
+  relativeToRoot: Boolean = true
+): Object => {
   const missingDotSlash = relativeToRoot && !path.startsWith('./')
   const missingFileExtension = !path.endsWith('.json')
   let finalPath = path
   finalPath = missingDotSlash ? './' + finalPath : finalPath
   finalPath = missingFileExtension ? finalPath + '.json' : finalPath
   const raw = fs.readFileSync(finalPath)
-  const parsed = JSON.parse(raw)
+  const parsed = JSON.parse(raw.toString())
   return parsed
 }
-helpers.importJson = importJson
 
 /**
  * Calculate Start time
@@ -33,7 +30,7 @@ helpers.importJson = importJson
  * Pre Conditions:
  * - timeStringUTC is a a valid 24 hour string in HH:mm:ss format
  */
-const calculateStartTime = (timeStringUTC: string): Date => {
+export const calculateStartTime = (timeStringUTC: string): Date => {
   const targetTime = new Date(`1970-01-01T${timeStringUTC}+00:00`)
   const targetHours = targetTime.getUTCHours()
   const targetMinutes = targetTime.getUTCMinutes()
@@ -46,7 +43,6 @@ const calculateStartTime = (timeStringUTC: string): Date => {
   startTime.setUTCMilliseconds(0)
   return startTime
 }
-helpers.calculateStartTime = calculateStartTime
 
 /**
  * Calculate end time in seconds based on a start time, resolution in seconds and number of candles
@@ -56,7 +52,7 @@ helpers.calculateStartTime = calculateStartTime
  * @param {int} numCandles - Number of candles to count
  * @returns {Date}
  */
-const calculateEndTime = (
+export const calculateEndTime = (
   timeStringUTC: string,
   resolutionMinutes: number,
   numCandles: number
@@ -67,9 +63,8 @@ const calculateEndTime = (
   const endTime = new Date(startTime.getTime() + offsetMilliseconds)
   return endTime
 }
-helpers.calculateEndTime = calculateEndTime
 
-const candleToCSV = (
+export const candleToCSV = (
   candle: Candle,
   columns: Array<string> = ['market', 'open', 'high', 'low', 'close'],
   delimiter: string = ','
@@ -80,9 +75,8 @@ const candleToCSV = (
   const csv = values.join(delimiter)
   return csv
 }
-helpers.candleToCSV = candleToCSV
 
-const candlesToCSV = (
+export const candlesToCSV = (
   candles: Array<Candle>,
   columns: Array<string> = ['market', 'open', 'high', 'low', 'close'],
   delimiter: string = ','
@@ -94,7 +88,3 @@ const candlesToCSV = (
   const csv = [header, ...rows].join('\n')
   return csv
 }
-helpers.candlesToCSV = candlesToCSV
-
-// Default export
-module.exports = helpers

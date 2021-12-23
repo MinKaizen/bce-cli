@@ -1,8 +1,7 @@
 'use strict'
-export {}
-import { Candle, ClientOptions } from '../modules/interfaces'
-const { Spot } = require('@binance/connector')
-const { calculateStartTime } = require('../modules/helpers')
+import { Candle, ClientOptions } from './interfaces'
+import { calculateStartTime } from './helpers'
+import { Spot } from '@binance/connector'
 
 interface BinanceOptions {
   startTime: number
@@ -10,7 +9,7 @@ interface BinanceOptions {
   limit: number
 }
 
-class BinanceClient {
+export default class BinanceClient {
   options: ClientOptions
   client: any
 
@@ -59,5 +58,3 @@ class BinanceClient {
     return candle
   }
 }
-
-module.exports = BinanceClient
